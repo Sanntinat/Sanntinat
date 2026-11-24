@@ -1,4 +1,7 @@
-# Santiago Natalichio Bestosini
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="banner/github-dark.png">
+  <img alt="Santiago Natalichio Bestosini, software developer: full stack, GIS and testing. Drawing of HIDRAGIS flood-aware evacuation routing." src="banner/github-light.png" width="100%">
+</picture>
 
 **Software developer** and final-year **Information Systems Engineering** student at UTN La Plata, Argentina.
 I build applications end to end (data model, API and interface) and I test what I ship.

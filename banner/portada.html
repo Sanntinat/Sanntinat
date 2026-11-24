@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Portada</title>
+<!--
+  Portadas del perfil (sistema visual "Plano" del portfolio).
+  Se abre con ?v=github-dark | github-light | linkedin y se exporta con render.ps1.
+  El dibujo es el ruteo de evacuación de HIDRAGIS: la ruta a pie esquiva los
+  tramos con más de 0,30 m de agua sobre una traza de damero con diagonales.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Azeret+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>
+  :root {
+    --sheet: #e8e6df; --sheet-raised: #f2f1ec; --ink: #15181a; --ink-soft: #55595a;
+    --ink-faint: #797d7b; --rule: #c4c1b7; --rule-soft: #d7d4cb; --mark: #b4331f;
+    --water: rgb(40 92 140 / 0.10); --water-line: rgb(40 92 140 / 0.55);
+  }
+  :root[data-theme="dark"] {
+    --sheet: #0a1a28; --sheet-raised: #0f2233; --ink: #dce8f1; --ink-soft: #93aabd;
+    --ink-faint: #5d7488; --rule: #1e3852; --rule-soft: #16293c; --mark: #e2603d;
+    --water: rgb(120 180 230 / 0.10); --water-line: rgb(140 190 235 / 0.55);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--sheet); }
+  body {
+    width: var(--w); height: var(--h); overflow: hidden; position: relative;
+    color: var(--ink); font-family: "Archivo", sans-serif;
+    font-variant-numeric: tabular-nums;
+    background-color: var(--sheet);
+    background-image:
+      linear-gradient(var(--rule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule) 1px, transparent 1px),
+      linear-gradient(var(--rule-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule-soft) 1px, transparent 1px);
+    background-size: 128px 128px, 128px 128px, 32px 32px, 32px 32px;
+    background-position: -1px -1px;
+  }
+  .mono { font-family: "Azeret Mono", monospace; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* Marco de la lámina */
+  .marco { position: absolute; inset: 16px; border: 1px solid var(--ink); pointer-events: none; }
+  .marco::before { content: ""; position: absolute; inset: 4px; border: 1px solid var(--rule); }
+  .ref { position: absolute; font-size: 10px; color: var(--ink-faint); }
+
+  /* Identidad */
+  .identidad { position: absolute; }
+  .nombre {
+    font-weight: 700; font-stretch: 72%; letter-spacing: -0.028em; line-height: 0.92;
+  }
+  .rol { font-stretch: 92%; color: var(--ink-soft); margin-top: 14px; }
+  .rol b { color: var(--ink); font-weight: 600; }
+  .stack { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 18px; font-size: 11px; color: var(--ink-soft); }
+  .stack span::before { content: "■"; color: var(--mark); margin-right: 7px; font-size: 7px; vertical-align: 2px; }
+
+  /* Lámina del dibujo */
+  .lamina { position: absolute; border: 1px solid var(--ink); background: var(--sheet-raised); overflow: hidden; }
+  .lamina svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .cajetin {
+    position: absolute; right: 0; bottom: 0; display: grid; grid-template-columns: auto auto;
+    border-top: 1px solid var(--ink); border-left: 1px solid var(--ink); background: var(--sheet-raised);
+    font-size: 9.5px;
+  }
+  .cajetin div { padding: 5px 9px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .cajetin div:nth-child(2n) { border-right: 0; }
+  .cajetin div:nth-last-child(-n+2) { border-bottom: 0; }
+  .cajetin .k { color: var(--ink-faint); }
+  .cajetin .v { color: var(--ink); }
+  .leyenda { position: absolute; left: 0; top: 0; padding: 8px 12px 6px; background: var(--sheet-raised); border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); font-size: 9.5px; color: var(--ink-soft); line-height: 1.7; }
+  .leyenda i { display: inline-block; width: 18px; height: 0; vertical-align: 3px; margin-right: 7px; }
+  .rev { position: absolute; font-size: 10px; color: var(--ink-faint); }
+</style>
+</head>
+<body>
+<div class="marco"></div>
+<div id="refs"></div>
+
+<div class="identidad" id="identidad">
+  <h1 class="nombre" id="nombre">Santiago<br>Natalichio Bestosini</h1>
+  <p class="rol" id="rol"><b>Software developer</b> · full stack · GIS · testing</p>
+  <div class="stack mono" id="stack">
+    <span>Python</span><span>TypeScript</span><span>FastAPI</span><span>Rails</span>
+    <span>React</span><span>PostGIS</span><span>Docker</span>
+  </div>
+</div>
+
+<div class="lamina" id="lamina">
+  <svg id="dibujo" xmlns="http://www.w3.org/2000/svg"></svg>
+  <div class="leyenda mono" id="leyenda">
+    <div><i style="border-top:2px solid var(--mark)"></i>evacuation route</div>
+    <div><i style="border-top:1px dashed var(--ink-faint)"></i>excluded · depth &gt; 0.30 m</div>
+  </div>
+  <div class="cajetin mono">
+    <div class="k">Fig.</div><div class="v">Flood-aware routing</div>
+    <div class="k">Proj.</div><div class="v">HIDRAGIS · GIDAS UTN</div>
+  </div>
+</div>
+<div class="rev mono" id="rev">Rev. 2026-11 · github.com/Sanntinat</div>
+
+<script>
+const v = new URLSearchParams(location.search).get("v") || "github-dark";
+const L = {
+  "github-dark":  { w: 1280, h: 320, tema: "dark"  },
+  "github-light": { w: 1280, h: 320, tema: "light" },
+  "linkedin":     { w: 1584, h: 396, tema: "dark"  },
+}[v];
+document.documentElement.dataset.theme = L.tema;
+document.body.style.setProperty("--w", L.w + "px");
+document.body.style.setProperty("--h", L.h + "px");
+
+const $ = (id) => document.getElementById(id);
+const place = (el, s) => Object.assign(el.style, s);
+
+if (v === "linkedin") {
+  // La foto de perfil tapa el tercio izquierdo de abajo, y el nombre ya figura
+  // debajo de la portada: el dibujo va al centro y el texto a la derecha.
+  place($("lamina"), { left: "300px", top: "40px", width: "640px", height: "316px" });
+  place($("identidad"), { left: "984px", top: "64px", width: "560px" });
+  $("nombre").innerHTML = "Software developer";
+  place($("nombre"), { fontSize: "58px" });
+  $("rol").innerHTML = "<b>Full stack · GIS · testing</b><br>Building HIDRAGIS, a flood early-warning<br>system, at GIDAS · UTN";
+  place($("rol"), { fontSize: "19px", lineHeight: "1.4" });
+  place($("rev"), { right: "40px", bottom: "30px" });
+  $("stack").lastElementChild.remove();   // seis entran en un renglón
+} else {
+  place($("identidad"), { left: "56px", top: "58px", width: "620px" });
+  place($("nombre"), { fontSize: "60px" });
+  place($("rol"), { fontSize: "21px" });
+  place($("lamina"), { left: "700px", top: "40px", width: "540px", height: "240px" });
+  place($("rev"), { left: "56px", bottom: "30px" });
+}
+
+// Referencias de grilla en el marco, como en una lámina.
+const refs = $("refs");
+const cols = Math.floor((L.w - 32) / 128);
+for (let i = 0; i < cols; i++) {
+  const t = document.createElement("div");
+  t.className = "ref mono"; t.textContent = i + 1;
+  place(t, { left: (16 + 128 * i + 60) + "px", top: "3px" });
+  refs.appendChild(t);
+}
+["A", "B", "C"].forEach((r, i) => {
+  if (24 + 128 * i + 50 > L.h - 20) return;
+  const t = document.createElement("div");
+  t.className = "ref mono"; t.textContent = r;
+  place(t, { left: "5px", top: (16 + 128 * i + 50) + "px" });
+  refs.appendChild(t);
+});
+
+// ---------- el dibujo ----------
+const svg = $("dibujo");
+const NS = "http://www.w3.org/2000/svg";
+const box = $("lamina").getBoundingClientRect();
+const W = box.width, H = box.height;
+svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const el = (tag, attrs, parent = svg) => {
+  const e = document.createElementNS(NS, tag);
+  for (const [k, val] of Object.entries(attrs)) e.setAttribute(k, val);
+  parent.appendChild(e); return e;
+};
+
+// Damero rotado como la traza de La Plata (unos 42°).
+const S = H * 0.108;                // una cuadra, proporcional a la lámina
+const ang = -42 * Math.PI / 180;
+const cx = W * 0.56, cy = H * 0.52; // dónde cae el centro del dibujo
+const ox = 5, oy = 4.5;             // centro en coordenadas de cuadra
+const P = (x, y) => {               // cuadra → pantalla
+  const dx = (x - ox) * S, dy = (y - oy) * S;
+  return [cx + dx * Math.cos(ang) - dy * Math.sin(ang), cy + dx * Math.sin(ang) + dy * Math.cos(ang)];
+};
+const line = (a, b, attrs, parent) => el("line", { x1: a[0], y1: a[1], x2: b[0], y2: b[1], ...attrs }, parent);
+const pts = (arr) => arr.map((p) => P(...p).join(",")).join(" ");
+
+const defs = el("defs", {});
+const hatch = el("pattern", { id: "agua", width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" }, defs);
+el("rect", { width: 6, height: 6, fill: css("--water") }, hatch);
+el("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: css("--water-line"), "stroke-width": 1 }, hatch);
+
+const g = el("g", {});
+const N = 14;
+for (let i = -4; i <= N; i++) {
+  const mayor = i % 6 === 0;
+  const attrs = { stroke: mayor ? css("--ink-soft") : css("--ink-faint"), "stroke-width": mayor ? 1.4 : 0.8, opacity: mayor ? 0.9 : 0.55 };
+  line(P(i, -4), P(i, N), attrs, g);
+  line(P(-4, i), P(N, i), attrs, g);
+}
+// Las diagonales de esquina a esquina.
+line(P(-4, -4), P(N, N), { stroke: css("--ink-soft"), "stroke-width": 1.4 }, g);
+line(P(-4, 12), P(12, -4), { stroke: css("--ink-soft"), "stroke-width": 1.4 }, g);
+
+// Zona anegada: calado > 0,30 m.
+const blob = [];
+for (let k = 0; k < 40; k++) {
+  const t = (k / 40) * Math.PI * 2;
+  const r = 1.75 + 0.28 * Math.sin(3 * t + 0.6) + 0.12 * Math.cos(5 * t);
+  blob.push([5.6 + r * 1.25 * Math.cos(t), 5.1 + r * Math.sin(t)]);
+}
+el("polygon", { points: pts(blob), fill: "url(#agua)", stroke: css("--water-line"), "stroke-width": 1 }, g);
+
+// Plazas cada seis cuadras.
+for (let x = 0; x <= 12; x += 6) for (let y = 0; y <= 12; y += 6) {
+  const [px, py] = P(x, y);
+  el("circle", { cx: px, cy: py, r: 3.2, fill: css("--sheet-raised"), stroke: css("--ink-soft"), "stroke-width": 1.2 }, g);
+}
+
+// El camino corto, excluido porque cruza el agua.
+el("polyline", { points: pts([[2, 6], [8, 6], [8, 2]]), fill: "none", stroke: css("--ink-faint"), "stroke-width": 1.4, "stroke-dasharray": "4 4" }, g);
+const [xx, xy] = P(5.1, 6);
+el("path", { d: `M${xx - 5} ${xy - 5} L${xx + 5} ${xy + 5} M${xx + 5} ${xy - 5} L${xx - 5} ${xy + 5}`, stroke: css("--mark"), "stroke-width": 1.6 }, g);
+
+// La ruta que se publica: rodea el anegamiento.
+const ruta = [[2, 6], [2, 4], [3, 4], [3, 2], [8, 2]];
+el("polyline", { points: pts(ruta), fill: "none", stroke: css("--mark"), "stroke-width": 2.6, "stroke-linejoin": "round", "stroke-linecap": "round" }, g);
+const [ax, ay] = P(2, 6), [bx, by] = P(8, 2);
+el("circle", { cx: ax, cy: ay, r: 5, fill: css("--mark") }, g);
+el("rect", { x: bx - 6, y: by - 6, width: 12, height: 12, fill: css("--sheet-raised"), stroke: css("--mark"), "stroke-width": 2 }, g);
+
+// Llamadas con línea de referencia.
+const llamada = (p, dx, dy, texto) => {
+  const [px, py] = P(...p);
+  const tx = px + dx, ty = py + dy;
+  line([px, py], [tx, ty], { stroke: css("--ink-soft"), "stroke-width": 0.8 }, g);
+  line([tx, ty], [tx + (dx > 0 ? 8 : -8), ty], { stroke: css("--ink-soft"), "stroke-width": 0.8 }, g);
+  const t = el("text", { x: tx + (dx > 0 ? 12 : -12), y: ty + 3.5, "text-anchor": dx > 0 ? "start" : "end",
+    fill: css("--ink"), "font-family": "Azeret Mono", "font-size": 9.5, "letter-spacing": "0.08em" }, g);
+  t.textContent = texto;
+};
+llamada([2, 6], -26, 22, "RESIDENT");
+llamada([8, 2], 26, -18, "SHELTER");
+llamada([6.4, 5.6], 30, 26, "H > 0.30 M");
+</script>
+</body>
+</html>
