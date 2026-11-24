@@ -3,7 +3,7 @@
 **Software developer** and final-year **Information Systems Engineering** student at UTN La Plata, Argentina.
 I build applications end to end (data model, API and interface) and I test what I ship.
 
-📍 La Plata, Argentina · 🎓 Graduating 2027 · 🗣️ Spanish (native), English (B2, Cambridge FCE)
+📍 Quilmes, Argentina · 🎓 Graduating 2027 · 🗣️ Spanish (native), English (B2, Cambridge FCE)
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-santiago--natalichio--bestosini-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/santiago-natalichio-bestosini/)
 [![Email](https://img.shields.io/badge/Email-santiagonatalichio03%40gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:santiagonatalichio03@gmail.com)
