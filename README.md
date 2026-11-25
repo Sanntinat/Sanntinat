@@ -13,7 +13,7 @@ Quilmes, Argentina · Spanish (native) · English (B2, Cambridge First Certifica
 ## Right now
 
 - Software engineering intern at GIDAS, UTN La Plata's research lab, working on HIDRAGIS, a GIS flood early-warning system for La Plata.
-- OnStock, my final-year capstone: inventory, orders and shipping for online stores.
+- OneStock, my final-year capstone: inventory, orders and shipping for online stores.
 
 ## Projects
 
@@ -27,7 +27,7 @@ Quilmes, Argentina · Spanish (native) · English (B2, Cambridge First Certifica
 - I wrote the cartography API in FastAPI and published the map layers as OGC WMS/WFS services with GeoServer, plus an open-data portal that versions each layer.
 - So far: 26 user stories in 15 reviewed pull requests, and 680+ automated tests (unit, integration, system and E2E) that GitHub Actions runs on every PR.
 
-### [OnStock](https://github.com/proyectoFinalFRLP) · inventory, orders and shipping platform
+### [OneStock](https://github.com/proyectoFinalFRLP) · inventory, orders and shipping platform
 <sub>Final-year capstone · team of 4 · [API](https://github.com/proyectoFinalFRLP/proyecto-api) · [Web](https://github.com/proyectoFinalFRLP/proyecto-web)</sub>
 
 `Ruby on Rails 8` `PostgreSQL` `React 19` `TypeScript` `MUI` `TanStack Query` `RSpec`
