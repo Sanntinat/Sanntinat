@@ -1,12 +1,15 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="banner/github-dark.png">
-  <img alt="Santiago Natalichio Bestosini, software developer: full stack, GIS and testing. Drawing of HIDRAGIS flood-aware evacuation routing." src="banner/github-light.png" width="100%">
-</picture>
+<a href="https://santiago-natalichio.vercel.app">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="banner/github-dark.png">
+    <img alt="Santiago Natalichio Bestosini, software developer: full stack, GIS and testing. Drawing of HIDRAGIS flood-aware evacuation routing. Links to the portfolio." src="banner/github-light.png" width="100%">
+  </picture>
+</a>
 
 I'm a software developer in my last year of Information Systems Engineering at UTN La Plata, Argentina. Most of my work is backend code in Python and Ruby with a React front end, and I write the tests alongside the feature.
 
 Quilmes, Argentina · Spanish (native) · English (B2, Cambridge First Certificate)
 
+[![Portfolio](https://img.shields.io/badge/Portfolio-santiago--natalichio.vercel.app-15181A?style=flat-square&logo=vercel&logoColor=white)](https://santiago-natalichio.vercel.app)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-santiago--natalichio--bestosini-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/santiago-natalichio-bestosini/)
 [![Email](https://img.shields.io/badge/Email-santiagonatalichio03%40gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:santiagonatalichio03@gmail.com)
 
@@ -58,7 +61,7 @@ Quilmes, Argentina · Spanish (native) · English (B2, Cambridge First Certifica
 
 - CECQ dental scheduling: appointments and patient records for a dental clinic in Quilmes (Django REST Framework, React, PostgreSQL). I did the Google sign-in and role-based access.
 - [La Plata metered parking map](https://github.com/BaltaMolteni/DAM-TPFINAL): a React Native (Expo) app that shows which streets have paid parking, where you left the car and where the paid zone ends.
-- [Portfolio](https://github.com/Sanntinat/portfolio): a static site with Next.js 16, React 19, TypeScript and Tailwind CSS.
+- [Portfolio](https://santiago-natalichio.vercel.app) ([code](https://github.com/Sanntinat/portfolio)): a static site in Spanish and English with Next.js 16, React 19, TypeScript and Tailwind CSS, deployed on Vercel. It has a terminal you can type commands into.
 
 ## Tech
 
